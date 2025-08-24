@@ -28,7 +28,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div 
-        className="professional-card rounded-2xl w-full max-w-md p-6 animate-slide-up text-foreground"
+        className="professional-card rounded-2xl w-full max-w-md p-6 animate-slide-up text-foreground shadow-2xl border-2 border-gray-100"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -64,22 +64,22 @@ interface PdfViewerModalProps {
 export function ContentModal({ title, description, icon, onDownload, onClose }: ContentModalProps) {
   return (
     <div className="text-center">
-      <div className="w-16 h-16 mx-auto gradient-btn-primary rounded-full flex items-center justify-center mb-4">
+      <div className="w-16 h-16 mx-auto gradient-btn-primary rounded-full flex items-center justify-center mb-4 shadow-lg">
         <span className="text-2xl">{icon}</span>
       </div>
-      <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>
-      <p className="text-muted-foreground mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
+      <p className="text-gray-700 mb-6 leading-relaxed font-medium">{description}</p>
       <div className="space-y-3">
         <button
           onClick={onDownload}
-          className="block w-full gradient-btn-primary text-white font-semibold py-3 rounded-xl"
+          className="block w-full gradient-btn-primary text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg"
           data-testid="button-access-content"
         >
           Acessar Conteúdo
         </button>
         <button
           onClick={onClose}
-          className="block w-full text-muted-foreground font-medium py-2 hover:text-foreground transition-colors duration-200"
+          className="block w-full text-gray-600 font-semibold py-2 hover:text-gray-800 transition-colors duration-200"
           data-testid="button-close-modal"
         >
           Fechar
@@ -93,17 +93,17 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
   if (!isAvailable) {
     return (
       <div className="text-center">
-        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center mb-4">
+        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
           <Clock className="w-8 h-8 text-white" />
         </div>
-        <h3 className="text-xl font-semibold mb-3">{title}</h3>
-        <p className="text-gray-600 mb-6 leading-relaxed">{description}</p>
-        <div className="bg-yellow-500 bg-opacity-10 border border-yellow-500 border-opacity-30 rounded-xl p-4 mb-6">
-          <p className="text-yellow-600 text-sm font-medium">🕐 Liberado em 24 horas</p>
+        <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
+        <p className="text-gray-700 mb-6 leading-relaxed font-medium">{description}</p>
+        <div className="bg-gradient-to-r from-yellow-100 to-orange-100 border-2 border-yellow-400 rounded-xl p-4 mb-6">
+          <p className="text-yellow-700 text-sm font-bold">🕐 Liberado em 24 horas</p>
         </div>
         <button
           onClick={onClose}
-          className="block w-full text-gray-500 font-medium py-2 hover:text-gray-700 transition-colors duration-200"
+          className="block w-full text-gray-600 font-semibold py-2 hover:text-gray-800 transition-colors duration-200"
           data-testid="button-close-modal"
         >
           Fechar
@@ -114,11 +114,11 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
 
   return (
     <div className="text-center">
-      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-4">
+      <div className="w-16 h-16 mx-auto gradient-btn-primary rounded-full flex items-center justify-center mb-4 shadow-lg">
         <span className="text-2xl">{icon}</span>
       </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-gray-600 mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
+      <p className="text-gray-700 mb-6 leading-relaxed font-medium">{description}</p>
       
       <div className="grid grid-cols-2 gap-3 mb-4">
         {previewUrl && (
@@ -131,7 +131,7 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
               window.dispatchEvent(event);
               onClose();
             }}
-            className="flex items-center justify-center py-3 px-4 bg-blue-500 text-white font-semibold rounded-xl shadow-lg hover:bg-blue-600 transition-all duration-300"
+            className="flex items-center justify-center py-3 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
             data-testid="button-preview-pdf"
           >
             <Eye className="w-4 h-4 mr-2" />
@@ -141,7 +141,7 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
         {downloadUrl && (
           <button
             onClick={() => window.open(downloadUrl, '_blank')}
-            className="flex items-center justify-center py-3 px-4 gradient-btn text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            className="flex items-center justify-center py-3 px-4 gradient-btn-primary text-white font-bold rounded-xl shadow-md hover:shadow-lg"
             data-testid="button-download-pdf"
           >
             <Download className="w-4 h-4 mr-2" />
@@ -152,7 +152,7 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
       
       <button
         onClick={onClose}
-        className="block w-full text-gray-500 font-medium py-2 hover:text-gray-700 transition-colors duration-200"
+        className="block w-full text-gray-600 font-semibold py-2 hover:text-gray-800 transition-colors duration-200"
         data-testid="button-close-modal"
       >
         Fechar
@@ -177,11 +177,11 @@ export function PdfViewerModal({ title, previewUrl, onClose }: PdfViewerModalPro
   return (
     <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-dark-300">
-        <h3 className="text-lg font-semibold text-white truncate">{title}</h3>
+      <div className="flex items-center justify-between p-4 professional-card border-b">
+        <h3 className="text-lg font-semibold text-foreground truncate">{title}</h3>
         <button
           onClick={onClose}
-          className="p-2 text-gray-400 hover:text-white transition-colors duration-200"
+          className="p-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
           data-testid="button-close-viewer"
         >
           <X className="w-6 h-6" />
