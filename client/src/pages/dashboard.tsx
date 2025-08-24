@@ -185,7 +185,7 @@ export default function Dashboard() {
                     200 Receitas Rápidas de Café da Manhã
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    O material principal com 200 receitas práticas, saborosas e saudáveis para transformar suas manhãs.
+                    Comece suas manhãs com mais sabor e energia. São 200 opções práticas, nutritivas e deliciosas para transformar seu café da manhã.
                   </p>
                   <div className="flex flex-wrap gap-2 text-sm">
                     <span className="status-badge-available px-3 py-1 rounded-full font-medium">200 Receitas</span>
