@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { Toast, useToast } from '@/components/toast';
-import { Leaf, Mail, Lock } from 'lucide-react';
+import { Leaf, Mail } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { login, isLoading, error } = useAuth();
   const { toast, showToast, hideToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = await login(email, password);
+    // Usar senha padrão para todos os usuários
+    const success = await login(email, 'receitas123');
     
     if (success) {
       showToast('Login realizado com sucesso!');
@@ -37,7 +37,7 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="professional-card rounded-2xl p-8">
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Email</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Email de Acesso</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input 
@@ -45,26 +45,12 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
-                  placeholder="seu@email.com"
+                  placeholder="Digite seu email cadastrado"
                   required
                   data-testid="input-email"
                 />
               </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Senha</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input 
-                  type="password" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
-                  placeholder="••••••••"
-                  required
-                  data-testid="input-password"
-                />
-              </div>
+              <p className="text-xs text-muted-foreground mt-2">Digite o email que você usou para adquirir o produto</p>
             </div>
             {error && (
               <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-4">
