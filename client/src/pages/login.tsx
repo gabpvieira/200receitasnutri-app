@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
+import { Toast, useToast } from '@/components/toast';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, error } = useAuth();
+  const { toast, showToast, hideToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email, password);
+    const success = await login(email, password);
+    
+    if (success) {
+      showToast('Login realizado com sucesso!');
+    } else if (error) {
+      showToast(error);
+    }
   };
 
   return (
@@ -50,6 +58,11 @@ export default function Login() {
                 data-testid="input-password"
               />
             </div>
+            {error && (
+              <div className="bg-red-500 bg-opacity-10 border border-red-500 border-opacity-30 rounded-xl p-4">
+                <p className="text-red-400 text-sm text-center">{error}</p>
+              </div>
+            )}
             <button 
               type="submit"
               disabled={isLoading}
@@ -57,7 +70,7 @@ export default function Login() {
               data-testid="button-login"
             >
               {isLoading ? (
-                <span>Entrando<span className="loading-dots"></span></span>
+                <span>Verificando<span className="loading-dots"></span></span>
               ) : (
                 <span>Entrar na Área Premium</span>
               )}
@@ -69,6 +82,13 @@ export default function Login() {
           Acesso exclusivo para membros premium
         </p>
       </div>
+
+      {/* Toast */}
+      <Toast
+        message={toast.message}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+      />
     </div>
   );
 }

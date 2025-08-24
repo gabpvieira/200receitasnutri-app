@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [activeTab, setActiveTab] = useState('inicio');
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { toast, showToast, hideToast } = useToast();
@@ -44,7 +44,7 @@ export default function Dashboard() {
           <section className="p-6">
             <div className="text-center mb-8 animate-fade-in">
               <h2 className="text-3xl font-bold text-white mb-3">
-                Bem-vindo(a) ao Cardápio da Nutri 🎉
+                Bem-vindo(a){user?.name ? `, ${user.name}` : ''} ao Cardápio da Nutri 🎉
               </h2>
               <p className="text-gray-300 text-lg">
                 Aqui você acessa seu cardápio, bônus e suporte.
