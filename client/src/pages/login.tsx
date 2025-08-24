@@ -80,7 +80,7 @@ export default function Login() {
               {isLoading ? (
                 <span>Verificando<span className="loading-dots"></span></span>
               ) : (
-                <span>Entrar na Área Premium</span>
+                <span>ACESSAR RECEITAS</span>
               )}
             </button>
           </div>
