@@ -28,7 +28,8 @@ export default function Login() {
           <div className="w-20 h-20 mx-auto gradient-btn-primary rounded-full flex items-center justify-center mb-4 shadow-lg">
             <Leaf className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Cardápio da Nutri</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">MANUAL DA NUTRI:</h1>
+          <h2 className="text-xl font-semibold text-white mb-2">200 RECEITAS RÁPIDAS DE CAFÉ DA MANHÃ</h2>
           <p className="text-white/80">Área Premium de Membros</p>
         </div>
 
