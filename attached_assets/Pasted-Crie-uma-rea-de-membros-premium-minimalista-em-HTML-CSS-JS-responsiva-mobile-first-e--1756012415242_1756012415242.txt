@@ -1,0 +1,112 @@
+Crie uma **área de membros premium minimalista** em **HTML + CSS + JS**, responsiva, mobile-first e com **fonte Poppins (Google Fonts)**.  
+
+Essa área será usada para entregar **produtos digitais em PDF** (Cardápio e Bônus), com acesso organizado em módulos e pop-ups para pré-visualização antes do download.  
+
+---
+
+## Funcionalidades Globais:
+- **Tela de login simples** (HTML + JS fake login, sem integração).  
+- Após login, redirecionar para o **Dashboard**.  
+- **Menu lateral (desktop)** e **menu superior retrátil (mobile)** com os módulos:  
+  1. **Início**  
+  2. **Cardápio Principal**  
+  3. **Bônus Exclusivos**  
+  4. **Plano Individualizado (WhatsApp)**  
+  5. **Suporte**  
+- **Pop-up Modal**: ao clicar em qualquer PDF (Cardápio ou Bônus), abrir um **pop-up centralizado** com:  
+  - Título do conteúdo  
+  - Pequena descrição  
+  - Botão CTA: **"Acessar Conteúdo"** → abre o PDF em nova aba  
+
+---
+
+## Estrutura de Conteúdo:
+
+### 🔹 Tela de Login
+- Fundo verde `#6b8e5c`
+- Card centralizado branco, bordas arredondadas
+- Campos: Email e Senha (fictício)
+- Botão “Entrar” → ao clicar, redireciona para `dashboard.html`
+
+---
+
+### 🔹 Dashboard – Início
+- Texto de boas-vindas: **"Bem-vindo(a) ao Cardápio da Nutri 🎉"**
+- Subtítulo: **"Aqui você acessa seu cardápio, bônus e suporte."**
+
+---
+
+### 🔹 Seção 1 – Cardápio Principal
+- Fundo branco
+- Card grande com:
+  - Título: **"Cardápio Completo – 200 Receitas de Café da Manhã"**
+  - Imagem ilustrativa (mockup):  
+    `https://nucleosaudavel.com/wp-content/uploads/2025/08/mockup.webp`
+  - Descrição curta:  
+    “O material principal com 200 receitas práticas, saborosas e saudáveis para transformar suas manhãs.”
+  - Botão CTA: **"Ver Cardápio"** → abre pop-up modal com:
+    - Título: Cardápio Completo
+    - Descrição: “Clique no botão abaixo para acessar seu cardápio completo em PDF.”
+    - Botão: **"Acessar Conteúdo"** → link para `cardapio-completo.pdf`
+
+---
+
+### 🔹 Seção 2 – Bônus Exclusivos
+- Fundo cinza claro `#fafafa`
+- Título centralizado: **"Bônus Exclusivos"**
+- Grid responsivo (3 colunas desktop, 1 mobile) com 3 cards:
+  
+  1. **Guia de Lanches Saudáveis**  
+     - Imagem: `https://nucleosaudavel.com/wp-content/uploads/2025/08/bonus1.webp`  
+     - Descrição: "Receitas rápidas e práticas para seus intervalos."  
+     - Botão: **"Ver Bônus"** → abre pop-up → acessa `bonus1.pdf`
+
+  2. **Cardápio Semanal Planejado**  
+     - Imagem: `https://nucleosaudavel.com/wp-content/uploads/2025/08/bonus2.webp`  
+     - Descrição: "Plano de 7 dias para organizar suas refeições."  
+     - Botão: **"Ver Bônus"** → abre pop-up → acessa `bonus2.pdf`
+
+  3. **Lista de Compras Inteligente**  
+     - Imagem: `https://nucleosaudavel.com/wp-content/uploads/2025/08/bonus3.webp`  
+     - Descrição: "Facilite sua vida no mercado comprando só o essencial."  
+     - Botão: **"Ver Bônus"** → abre pop-up → acessa `bonus3.pdf`
+
+---
+
+### 🔹 Seção 3 – Plano Individualizado (WhatsApp)
+- Fundo branco
+- Texto explicativo:  
+  “Quer um **cronograma personalizado de 30 dias**, feito sob medida para o seu objetivo?  
+  Clique abaixo e fale com a Nutri pelo WhatsApp.”
+- Botão CTA: **"Solicitar Plano no WhatsApp"**  
+- Link: `https://wa.me/5584999389121`
+
+---
+
+### 🔹 Seção 4 – Suporte
+- Fundo cinza claro
+- Texto: “Precisa de ajuda? Nosso time está pronto para te atender.”
+- Botão CTA: **"Falar no WhatsApp"**  
+- Link: `https://wa.me/5584999389121`
+
+---
+
+## Estilo Visual:
+- **Fonte:** Poppins  
+- **Botões CTA:** verdes escuros, arredondados, sombra suave, efeito hover (escurecer verde).  
+- **Cards:** brancos, sombra leve, bordas arredondadas, imagem no topo.  
+- **Pop-ups:** fundo branco, borda arredondada, sombra forte, overlay escuro atrás.  
+- **Responsividade total:**  
+  - Desktop → grid 3 colunas  
+  - Tablet → grid 2 colunas  
+  - Mobile → 1 coluna  
+
+---
+
+## Arquivos Necessários:
+- `index.html` → Tela de Login  
+- `dashboard.html` → Área de membros com todas as seções  
+- `style.css` → Estilos globais  
+- `script.js` →  
+  - Lógica de login simples  
+  - Controle dos pop-ups (abrir/fechar modais)  
