@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { Toast, useToast } from '@/components/toast';
+import { Leaf, Mail, Lock } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -24,49 +25,55 @@ export default function Login() {
       <div className="w-full max-w-md animate-fade-in">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-4 shadow-2xl">
-            <span className="text-2xl font-bold text-white">🥗</span>
+          <div className="w-20 h-20 mx-auto gradient-btn-primary rounded-full flex items-center justify-center mb-4 shadow-lg">
+            <Leaf className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Cardápio da Nutri</h1>
-          <p className="text-gray-300">Área Premium de Membros</p>
+          <p className="text-white/80">Área Premium de Membros</p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 shadow-2xl">
+        <form onSubmit={handleSubmit} className="professional-card rounded-2xl p-8">
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-200 mb-2">Email</label>
-              <input 
-                type="email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-dark-200 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                placeholder="seu@email.com"
-                required
-                data-testid="input-email"
-              />
+              <label className="block text-sm font-medium text-foreground mb-2">Email</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input 
+                  type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
+                  placeholder="seu@email.com"
+                  required
+                  data-testid="input-email"
+                />
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-200 mb-2">Senha</label>
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-dark-200 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                placeholder="••••••••"
-                required
-                data-testid="input-password"
-              />
+              <label className="block text-sm font-medium text-foreground mb-2">Senha</label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input 
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
+                  placeholder="••••••••"
+                  required
+                  data-testid="input-password"
+                />
+              </div>
             </div>
             {error && (
-              <div className="bg-red-500 bg-opacity-10 border border-red-500 border-opacity-30 rounded-xl p-4">
-                <p className="text-red-400 text-sm text-center">{error}</p>
+              <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-4">
+                <p className="text-destructive text-sm text-center">{error}</p>
               </div>
             )}
             <button 
               type="submit"
               disabled={isLoading}
-              className="w-full gradient-btn text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+              className="w-full gradient-btn-primary text-white font-semibold py-3 rounded-xl disabled:opacity-50"
               data-testid="button-login"
             >
               {isLoading ? (
@@ -78,7 +85,7 @@ export default function Login() {
           </div>
         </form>
 
-        <p className="text-center text-gray-400 text-sm mt-6">
+        <p className="text-center text-white/70 text-sm mt-6">
           Acesso exclusivo para membros premium
         </p>
       </div>
