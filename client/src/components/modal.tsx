@@ -55,6 +55,12 @@ interface PdfModalProps {
   onClose: () => void;
 }
 
+interface PdfViewerModalProps {
+  title: string;
+  previewUrl: string;
+  onClose: () => void;
+}
+
 export function ContentModal({ title, description, icon, onDownload, onClose }: ContentModalProps) {
   return (
     <div className="text-center">
@@ -117,7 +123,14 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
       <div className="grid grid-cols-2 gap-3 mb-4">
         {previewUrl && (
           <button
-            onClick={() => window.open(previewUrl, '_blank')}
+            onClick={() => {
+              // Trigger preview modal instead of opening new tab
+              const event = new CustomEvent('openPdfViewer', { 
+                detail: { title, previewUrl } 
+              });
+              window.dispatchEvent(event);
+              onClose();
+            }}
             className="flex items-center justify-center py-3 px-4 bg-blue-500 text-white font-semibold rounded-xl shadow-lg hover:bg-blue-600 transition-all duration-300"
             data-testid="button-preview-pdf"
           >
@@ -144,6 +157,45 @@ export function PdfModal({ title, description, icon, previewUrl, downloadUrl, is
       >
         Fechar
       </button>
+    </div>
+  );
+}
+
+export function PdfViewerModal({ title, previewUrl, onClose }: PdfViewerModalProps) {
+  useEffect(() => {
+    if (true) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 bg-dark-300">
+        <h3 className="text-lg font-semibold text-white truncate">{title}</h3>
+        <button
+          onClick={onClose}
+          className="p-2 text-gray-400 hover:text-white transition-colors duration-200"
+          data-testid="button-close-viewer"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+      
+      {/* PDF Viewer */}
+      <div className="flex-1">
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          title={`Preview de ${title}`}
+        />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
-import { Modal, ContentModal, PdfModal } from '@/components/modal';
+import { Modal, ContentModal, PdfModal, PdfViewerModal } from '@/components/modal';
 import { Toast, useToast } from '@/components/toast';
 import { 
   Home, 
@@ -20,7 +20,20 @@ export default function Dashboard() {
   const { logout, user } = useAuth();
   const [activeTab, setActiveTab] = useState('inicio');
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [pdfViewer, setPdfViewer] = useState<{ title: string; previewUrl: string } | null>(null);
   const { toast, showToast, hideToast } = useToast();
+
+  // Listen for PDF viewer events
+  useEffect(() => {
+    const handleOpenPdfViewer = (event: CustomEvent) => {
+      setPdfViewer(event.detail);
+    };
+
+    window.addEventListener('openPdfViewer', handleOpenPdfViewer as EventListener);
+    return () => {
+      window.removeEventListener('openPdfViewer', handleOpenPdfViewer as EventListener);
+    };
+  }, []);
 
   // Content data with Google Drive links
   const contentData = {
@@ -449,6 +462,15 @@ export default function Dashboard() {
           onClose={() => setActiveModal(null)}
         />
       </Modal>
+
+      {/* PDF Viewer Modal */}
+      {pdfViewer && (
+        <PdfViewerModal
+          title={pdfViewer.title}
+          previewUrl={pdfViewer.previewUrl}
+          onClose={() => setPdfViewer(null)}
+        />
+      )}
 
       {/* Toast */}
       <Toast
