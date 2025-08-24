@@ -174,7 +174,7 @@ export default function Dashboard() {
               
               <div className="professional-card rounded-2xl p-6 mb-6">
                 <img 
-                  src="https://nucleosaudavel.com/wp-content/uploads/2025/08/mockup.webp" 
+                  src="https://i.postimg.cc/yNNMc9LX/capam-ockup.jpg" 
                   alt="Mockup do Cardápio Completo" 
                   className="w-full h-48 object-cover rounded-xl mb-4"
                   data-testid="img-cardapio-mockup"
