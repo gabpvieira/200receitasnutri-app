@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
-import { Modal, ContentModal } from '@/components/modal';
+import { Modal, ContentModal, PdfModal } from '@/components/modal';
 import { Toast, useToast } from '@/components/toast';
 import { 
   Home, 
@@ -22,11 +22,36 @@ export default function Dashboard() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { toast, showToast, hideToast } = useToast();
 
-  const handleDownload = (contentName: string) => {
-    showToast(`${contentName} - Abrindo em nova aba!`);
-    setActiveModal(null);
-    // In a real app, this would open the PDF in a new tab
-    window.open('#', '_blank');
+  // Content data with Google Drive links
+  const contentData = {
+    cardapio: {
+      title: 'Cardápio Completo',
+      description: 'Acesse agora seu cardápio completo em PDF com 200 receitas exclusivas.',
+      icon: '📖',
+      previewUrl: 'https://drive.google.com/file/d/19iXTxKCUfBZ_n8kvfMD4_QC7_4CUSbmS/preview',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=19iXTxKCUfBZ_n8kvfMD4_QC7_4CUSbmS',
+      isAvailable: true
+    },
+    bonus1: {
+      title: 'Guia de Lanches Saudáveis',
+      description: 'Acesse agora seu guia completo com receitas rápidas e práticas para seus intervalos.',
+      icon: '🥪',
+      previewUrl: 'https://drive.google.com/file/d/1fIIuk_8Jzpsrg-wYcEHsd2729rDvPJrG/preview',
+      downloadUrl: 'https://drive.google.com/uc?export=download&id=1fIIuk_8Jzpsrg-wYcEHsd2729rDvPJrG',
+      isAvailable: true
+    },
+    bonus2: {
+      title: 'Cardápio Semanal Planejado',
+      description: 'Organize suas refeições com nosso plano de 7 dias estruturado e balanceado.',
+      icon: '📅',
+      isAvailable: false
+    },
+    bonus3: {
+      title: 'Lista de Compras Inteligente',
+      description: 'Facilite sua vida no mercado com nossa lista otimizada para comprar apenas o essencial.',
+      icon: '🛒',
+      isAvailable: false
+    }
   };
 
   const tabs = [
@@ -172,7 +197,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Bônus 2 */}
-                <div className="glass-card rounded-xl p-4" data-testid="card-bonus-2">
+                <div className="glass-card rounded-xl p-4 opacity-60" data-testid="card-bonus-2">
                   <div className="flex items-start space-x-4">
                     <img 
                       src="https://nucleosaudavel.com/wp-content/uploads/2025/08/bonus2.webp" 
@@ -180,21 +205,24 @@ export default function Dashboard() {
                       className="w-16 h-16 object-cover rounded-lg"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-white mb-1">Cardápio Semanal Planejado</h3>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-white">Cardápio Semanal Planejado</h3>
+                        <span className="text-xs bg-yellow-500 bg-opacity-20 text-yellow-400 px-2 py-1 rounded-full">🕒 24h</span>
+                      </div>
                       <p className="text-sm text-gray-400 mb-3">Plano de 7 dias para organizar suas refeições.</p>
                       <button 
                         onClick={() => setActiveModal('bonus2-modal')}
-                        className="text-primary-400 font-medium text-sm hover:text-primary-300 transition-colors duration-200"
+                        className="text-gray-500 font-medium text-sm cursor-not-allowed"
                         data-testid="button-view-bonus-2"
                       >
-                        Ver Bônus →
+                        Em breve →
                       </button>
                     </div>
                   </div>
                 </div>
 
                 {/* Bônus 3 */}
-                <div className="glass-card rounded-xl p-4" data-testid="card-bonus-3">
+                <div className="glass-card rounded-xl p-4 opacity-60" data-testid="card-bonus-3">
                   <div className="flex items-start space-x-4">
                     <img 
                       src="https://nucleosaudavel.com/wp-content/uploads/2025/08/bonus3.webp" 
@@ -202,14 +230,17 @@ export default function Dashboard() {
                       className="w-16 h-16 object-cover rounded-lg"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-white mb-1">Lista de Compras Inteligente</h3>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-white">Lista de Compras Inteligente</h3>
+                        <span className="text-xs bg-yellow-500 bg-opacity-20 text-yellow-400 px-2 py-1 rounded-full">🕒 24h</span>
+                      </div>
                       <p className="text-sm text-gray-400 mb-3">Facilite sua vida no mercado comprando só o essencial.</p>
                       <button 
                         onClick={() => setActiveModal('bonus3-modal')}
-                        className="text-primary-400 font-medium text-sm hover:text-primary-300 transition-colors duration-200"
+                        className="text-gray-500 font-medium text-sm cursor-not-allowed"
                         data-testid="button-view-bonus-3"
                       >
-                        Ver Bônus →
+                        Em breve →
                       </button>
                     </div>
                   </div>
@@ -376,41 +407,45 @@ export default function Dashboard() {
 
       {/* Modals */}
       <Modal isOpen={activeModal === 'cardapio-modal'} onClose={() => setActiveModal(null)}>
-        <ContentModal
-          title="Cardápio Completo"
-          description="Clique no botão abaixo para acessar seu cardápio completo em PDF com 200 receitas exclusivas."
-          icon="📖"
-          onDownload={() => handleDownload('Cardápio')}
+        <PdfModal
+          title={contentData.cardapio.title}
+          description={contentData.cardapio.description}
+          icon={contentData.cardapio.icon}
+          previewUrl={contentData.cardapio.previewUrl}
+          downloadUrl={contentData.cardapio.downloadUrl}
+          isAvailable={contentData.cardapio.isAvailable}
           onClose={() => setActiveModal(null)}
         />
       </Modal>
 
       <Modal isOpen={activeModal === 'bonus1-modal'} onClose={() => setActiveModal(null)}>
-        <ContentModal
-          title="Guia de Lanches Saudáveis"
-          description="Acesse agora seu guia completo com receitas rápidas e práticas para seus intervalos."
-          icon="🥪"
-          onDownload={() => handleDownload('Guia de Lanches')}
+        <PdfModal
+          title={contentData.bonus1.title}
+          description={contentData.bonus1.description}
+          icon={contentData.bonus1.icon}
+          previewUrl={contentData.bonus1.previewUrl}
+          downloadUrl={contentData.bonus1.downloadUrl}
+          isAvailable={contentData.bonus1.isAvailable}
           onClose={() => setActiveModal(null)}
         />
       </Modal>
 
       <Modal isOpen={activeModal === 'bonus2-modal'} onClose={() => setActiveModal(null)}>
-        <ContentModal
-          title="Cardápio Semanal Planejado"
-          description="Organize suas refeições com nosso plano de 7 dias estruturado e balanceado."
-          icon="📅"
-          onDownload={() => handleDownload('Cardápio Semanal')}
+        <PdfModal
+          title={contentData.bonus2.title}
+          description={contentData.bonus2.description}
+          icon={contentData.bonus2.icon}
+          isAvailable={contentData.bonus2.isAvailable}
           onClose={() => setActiveModal(null)}
         />
       </Modal>
 
       <Modal isOpen={activeModal === 'bonus3-modal'} onClose={() => setActiveModal(null)}>
-        <ContentModal
-          title="Lista de Compras Inteligente"
-          description="Facilite sua vida no mercado com nossa lista otimizada para comprar apenas o essencial."
-          icon="🛒"
-          onDownload={() => handleDownload('Lista de Compras')}
+        <PdfModal
+          title={contentData.bonus3.title}
+          description={contentData.bonus3.description}
+          icon={contentData.bonus3.icon}
+          isAvailable={contentData.bonus3.isAvailable}
           onClose={() => setActiveModal(null)}
         />
       </Modal>
