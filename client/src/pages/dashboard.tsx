@@ -94,7 +94,7 @@ export default function Dashboard() {
                 <Award className="w-8 h-8 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-3">
-                Bem-vindo(a){user?.name ? `, ${user.name}` : ''} 👋
+                Bem-vindo(a){user?.name ? `, ${user.name.split(' ')[0]}` : ''} 👋
               </h2>
               <p className="text-muted-foreground text-lg mb-2">
                 Sua jornada saudável começa aqui!
