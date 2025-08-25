@@ -22,9 +22,15 @@ async function authenticateUser(email, password) {
       console.error('Airtable base not configured');
       // Fallback authentication for demo/testing
       if (email && password === 'receitas123') {
+        // Extract name from email (part before @)
+        const nameFromEmail = email.split('@')[0].replace(/[._]/g, ' ');
+        const capitalizedName = nameFromEmail.split(' ').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ).join(' ');
+        
         return {
           id: '1',
-          name: 'Usuário Demo',
+          name: capitalizedName || 'Usuário Demo',
           email: email
         };
       }
@@ -54,9 +60,15 @@ async function authenticateUser(email, password) {
     console.error('Airtable authentication error:', error);
     // Fallback authentication for demo/testing
     if (email && password === 'receitas123') {
+      // Extract name from email (part before @)
+      const nameFromEmail = email.split('@')[0].replace(/[._]/g, ' ');
+      const capitalizedName = nameFromEmail.split(' ').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+      ).join(' ');
+      
       return {
         id: '1',
-        name: 'Usuário Demo',
+        name: capitalizedName || 'Usuário Demo',
         email: email
       };
     }
