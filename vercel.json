@@ -11,12 +11,10 @@
     {
       "source": "/api/(.*)",
       "destination": "/dist/index.js"
-    }
-  ],
-  "routes": [
+    },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "env": {
